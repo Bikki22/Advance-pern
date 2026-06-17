@@ -1,0 +1,55 @@
+import { z } from "zod";
+declare const envSchema: z.ZodObject<{
+    NODE_ENV: z.ZodDefault<z.ZodEnum<{
+        development: "development";
+        poroduction: "poroduction";
+        test: "test";
+    }>>;
+    PORT: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
+    DATABASE_URL: z.ZodString;
+    CLERK_PUBLISHABLE_KEY: z.ZodString;
+    CLERK_SECRET_KEY: z.ZodString;
+    CLERK_WEBHOOK_SECRET: z.ZodOptional<z.ZodString>;
+    FRONTEND_URL: z.ZodString;
+    POLAR_ACCESS_TOKEN: z.ZodOptional<z.ZodString>;
+    POLAR_WEBHOOK_SECRET: z.ZodOptional<z.ZodString>;
+    POLAR_API_BASE: z.ZodDefault<z.ZodString>;
+    POLAR_CHECKOUT_PRODUCT_ID: z.ZodString;
+    STREAM_API_KEY: z.ZodString;
+    STREAM_API_SECRET: z.ZodString;
+    IMAGEKIT_URL_ENDPOINT: z.ZodString;
+}, z.core.$strip>;
+export type Env = z.infer<typeof envSchema>;
+export declare function loadEnv(): {
+    NODE_ENV: "development" | "poroduction" | "test";
+    PORT: number;
+    DATABASE_URL: string;
+    CLERK_PUBLISHABLE_KEY: string;
+    CLERK_SECRET_KEY: string;
+    FRONTEND_URL: string;
+    POLAR_API_BASE: string;
+    POLAR_CHECKOUT_PRODUCT_ID: string;
+    STREAM_API_KEY: string;
+    STREAM_API_SECRET: string;
+    IMAGEKIT_URL_ENDPOINT: string;
+    CLERK_WEBHOOK_SECRET?: string | undefined;
+    POLAR_ACCESS_TOKEN?: string | undefined;
+    POLAR_WEBHOOK_SECRET?: string | undefined;
+};
+export declare function getEnv(): {
+    NODE_ENV: "development" | "poroduction" | "test";
+    PORT: number;
+    DATABASE_URL: string;
+    CLERK_PUBLISHABLE_KEY: string;
+    CLERK_SECRET_KEY: string;
+    FRONTEND_URL: string;
+    POLAR_API_BASE: string;
+    POLAR_CHECKOUT_PRODUCT_ID: string;
+    STREAM_API_KEY: string;
+    STREAM_API_SECRET: string;
+    IMAGEKIT_URL_ENDPOINT: string;
+    CLERK_WEBHOOK_SECRET?: string | undefined;
+    POLAR_ACCESS_TOKEN?: string | undefined;
+    POLAR_WEBHOOK_SECRET?: string | undefined;
+};
+export {};
