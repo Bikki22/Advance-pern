@@ -12,7 +12,7 @@ function parseRole(value) {
     return "customer";
 }
 function isAdmin(role) {
-    return (role = "admin");
+    return role === "admin";
 }
 function isStaff(role) {
     return role === "support" || role === "admin";
