@@ -10,6 +10,8 @@ const express_2 = require("@clerk/express");
 const clerk_1 = require("./webhooks/clerk");
 const env_1 = require("./lib/env");
 const cron_1 = __importDefault(require("./lib/cron"));
+const meRouter_1 = __importDefault(require("./routes/meRouter"));
+const productRouter_1 = __importDefault(require("./routes/productRouter"));
 const node_fs_1 = __importDefault(require("node:fs"));
 const node_path_1 = __importDefault(require("node:path"));
 const env = (0, env_1.getEnv)();
@@ -31,6 +33,8 @@ app.get("/health", (_req, res) => {
 app.get("/health", (_req, res) => {
     res.json({ ok: true });
 });
+app.use("/api/me", meRouter_1.default);
+app.use("/api/product", productRouter_1.default);
 const publicDir = node_path_1.default.join(process.cwd(), "public");
 if (node_fs_1.default.existsSync(publicDir)) {
     app.use(express_1.default.static(publicDir));

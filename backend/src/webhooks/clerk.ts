@@ -16,6 +16,7 @@ export async function clerkWebhookHandler(req: Request, res: Response) {
       return;
     }
 
+    // clerk's verifier expects a web request with the raw body; Express may give Buffer or string
     const playload =
       req.body instanceof Buffer
         ? req.body.toString("utf-8")

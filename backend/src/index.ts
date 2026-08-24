@@ -7,13 +7,15 @@ import { clerkWebhookHandler } from "./webhooks/clerk";
 import { getEnv } from "./lib/env";
 import keepAliveCron from "./lib/cron";
 
+import meRouter from "./routes/meRouter";
+
 import fs from "node:fs";
 import path from "node:path";
 
 const env = getEnv();
 const app = express();
 
-const PORT = process.env.PORT ?? 3001;
+const PORT = process.env.PORT ?? 8000;
 
 const rawjson = express.raw({
   type: "application/json",
@@ -32,9 +34,7 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-app.get("/health", (_req, res) => {
-  res.json({ ok: true });
-});
+app.use("/api/me", meRouter);
 
 const publicDir = path.join(process.cwd(), "public");
 if (fs.existsSync(publicDir)) {
@@ -54,7 +54,7 @@ if (fs.existsSync(publicDir)) {
   });
 }
 
-app.listen(PORT, () => {
+app.listen(env.PORT, () => {
   console.log(`server is running in port ${env.PORT}`);
   if (env.NODE_ENV === "poroduction") {
     keepAliveCron.start();
