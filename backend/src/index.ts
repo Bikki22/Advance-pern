@@ -15,8 +15,6 @@ import path from "node:path";
 const env = getEnv();
 const app = express();
 
-const PORT = process.env.PORT ?? 8000;
-
 const rawjson = express.raw({
   type: "application/json",
   limit: "1mb",
